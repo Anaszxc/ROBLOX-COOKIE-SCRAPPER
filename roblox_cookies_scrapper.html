@@ -1,0 +1,34 @@
+import requests
+from bs4 import BeautifulSoup
+
+# Function to extract Roblox cookies from a legitimate session
+def extract_cookies(username, password):
+    # Create a session to simulate a login
+    session = requests.Session()
+
+    # Login to Roblox using provided credentials
+    login_data = {
+        "username": username,
+        "password": password
+    }
+    response = session.post("https://www.roblox.com/login", data=login_data)
+
+    # Check if login was successful
+    if response.status_code == 200:
+        # Extract cookies from the session
+        cookies = session.cookies.get_dict()
+        return cookies
+    else:
+        print("Failed to log in. Status code:", response.status_code)
+        return None
+
+# Provided credentials
+username = "MAGIC09649"
+password = "ANAS BA@123"
+
+# Extract cookies using provided credentials
+cookies = extract_cookies(username, password)
+if cookies:
+    print("Roblox cookies extracted successfully:", cookies)
+else:
+    print("Failed to extract Roblox cookies.")
